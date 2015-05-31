@@ -1,0 +1,44 @@
+(defn block-values [board coord]
+  (set (map (fn [x] (value-at board x)) (coord-pairs (range (first coord) (inc(last coord)))))))
+
+
+(defn coord-pairs [coords]
+  (vec (for [row coords
+        col coords]
+    [row col])))
+
+(defn block-values [board coord]
+  (let [first [0 1 2]
+        mid [3 4 5]
+        last [6 7 8]
+        top-left (set (coord-pairs [0 1 2]))
+        mid-mid (set (coord-pairs [3 4 5]))
+        bottom-right (set (coord-pairs [6 7 8]))
+        top-mid (set (coord-pairs [0 1 2] [3 4 5])
+
+
+(defn block-values [board coord]
+  (let [first [0 1 2]
+        mid [3 4 5]
+        last [6 7 8]
+        top-left (set (coord-pairs first))
+        mid-mid (set (coord-pairs mid))
+        bottom-right (set (coord-pairs last))
+        top-mid (set (coord-pairs first mid))
+        top-right (set (coord-pairs first last))
+        mid-left (set (coord-pairs mid first))
+        mid-right (set (coord-pairs mid last))
+        bottom-left (set (coord-pairs last first))
+        bottom-mid (set (coord-pairs last mid))
+        my-blocks [top-left mid-mid top-left bottom-right top-mid
+
+
+(defn solve [board]
+  (if (valid-solution? board)
+    board
+    (let [empty-point (find-empty-point board)
+          valid-vals (vec (valid-values-for board empty-point))]
+      (for [possible-val valid-vals
+            new-board (set-value-at board empty-point possible-val)]
+        (solve new-board)))))
+          
